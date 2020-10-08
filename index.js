@@ -5,8 +5,8 @@ const log = require('electron-log');
 const path = require('path');
 const menu = require('./menu');
 const fs = require('fs');
-const Config = require('electron-config')
-const config = new Config()
+const Store = require('electron-store')
+const store = new Store();
 
 const notificationIndicator = '●';
 
@@ -59,7 +59,7 @@ function createMainWindow() {
 			partition: 'persist:asana'
 		}
 	};
-	Object.assign(opts, config.get('winBounds'));
+	Object.assign(opts, store.get('winBounds'));
 
 	const win = new BrowserWindow(opts);
 
@@ -76,7 +76,7 @@ function createMainWindow() {
 			}
 		} else {
 			// save window size and position
-			config.set('winBounds', win.getBounds());
+			store.set('winBounds', win.getBounds());
 		}
 	});
 
